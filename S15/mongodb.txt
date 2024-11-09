@@ -1,0 +1,115 @@
+
+relationsdb> db.users.find({orders:{$all:[1,2]}})
+[
+  {
+    _id: 1,
+    name: 'ritivk',
+
+relationsdb> db.users.find({orders:{$elemMatch:[4,5]}})
+MongoServerError[BadValue]: $elemMatch needs an Object
+relationsdb> db.users.find({orders:{$elemMatch:[4,5]}})
+MongoServerError[BadValue]: $elemMatch needs an Object
+relationsdb> db.users.find({orders:{$elemMatch:{4,5}}})
+Uncaught:
+
+relationsdb> db.users.find({orders:{$elemMatch:{$gt:4}}})
+[
+  {
+    _id: 1,
+    name: 'ritivk',
+    gender: 'male',
+    contactdetails: 101,
+    city: 'hyd',
+    orders: [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    _id: 2,
+
+relationsdb> db.users.updateOne({_id:1},{$push:{orders:6}})
+{
+
+relationsdb> db.users.find()
+[
+  {
+    _id: 1,
+    name: 'ritivk',
+    gender: 'male',
+    contactdetails: 101,
+    city: 'hyd',
+    orders: [ 1, 2, 3, 4, 5, 6 ]
+  },
+  {
+    _id: 2,
+    name: 'zoya',
+    gender: 'female',
+    contactdetails: 103,
+    orders: [ 1, 2, 5 ]
+  },
+  {
+    _id: 3,
+    name: 'sameer',
+    gender: 'male',
+    contactdetails: 102,
+    orders: [ 4, 5 ]
+  }
+]
+relationsdb> db.users.updateOne({_id:2},{$pop:{orders:1}})
+{
+
+relationsdb> db.users.updateOne({_id:2},{$pop:{orders:-1}})
+{
+
+relationsdb> db.users.updateOne({_id:1},{$pop:{orders:-1}})
+{
+
+relationsdb> db.users.updateOne({_id:3},{$pop:{orders:-1}})
+{
+
+relationsdb> db.users.find({$sort:{name:-1}})
+MongoServerError[BadValue]: unknown top level operator: $sort. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.
+relationsdb> db.users.aggregate({$sort:{name:-1}})
+[
+  {
+    _id: 2,
+    name: 'zoya',
+    gender: 'female',
+    contactdetails: 103,
+    orders: [ 2 ]
+  },
+  {
+    _id: 3,
+    name: 'sameer',
+    gender: 'male',
+    contactdetails: 102,
+    orders: [ 5 ]
+  },
+  {
+    _id: 1,
+    name: 'ritivk',
+
+relationsdb> db.users.aggregate({$sort:{_id:-1}})
+[
+  {
+    _id: 3,
+    name: 'sameer',
+    gender: 'male',
+    contactdetails: 102,
+    orders: [ 5 ]
+  },
+  {
+    _id: 2,
+    name: 'zoya',
+    gender: 'female',
+    contactdetails: 103,
+    orders: [ 2 ]
+  },
+  {
+    _id: 1,
+    name: 'ritivk',
+    gender: 'male',
+    contactdetails: 101,
+    city: 'hyd',
+    orders: [ 2, 3, 4, 5, 6 ]
+  }
+]
+relationsdb>
