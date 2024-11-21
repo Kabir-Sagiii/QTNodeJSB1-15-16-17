@@ -1,7 +1,6 @@
 function createFolder() {
-  fetch("http://localhost:5656", { mode: "no-cors" })
+  fetch("http://localhost:5656")
     .then((res) => {
-      console.log(res.json);
       return res.json();
     })
     .then((data) => {

@@ -2,11 +2,13 @@ const http = require("http");
 const fs = require("fs");
 
 const server = http.createServer((req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins
+  var result;
   fs.mkdir("./HTML", (error) => {
     if (error) {
-      res.end("<h1 style='color:red;'>Error while creating Folder</h1>");
+      res.end(JSON.stringify({ data: "<h1 style='color:red'>error</h1>" }));
     } else {
-      res.end("<h1 style='color:green;'>Folder is Created</h1>");
+      res.end(JSON.stringify({ data: "<h1 style='color:green'>created</h1>" }));
     }
   });
 });
